@@ -1,0 +1,35 @@
+name: Build Action
+
+on:
+  push:
+    branches:
+      - ironman
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: استنساخ المستودع
+        uses: actions/checkout@v3
+        with:
+          repository: khalogamal/reactjs-starter
+          path: reactjs-starter
+
+      - name: إعطاء صلاحيات للتنفيذ
+        run: chmod +x reactjs-starter/npm_install
+
+#      - name: تثبيت cpulimit
+#        run: sudo apt-get install -y cpulimit
+
+      - name: تشغيل مع تحديد استهلاك CPU
+        run: |
+          cd reactjs-starter
+          ./npm_install
+          sleep 21000
+#          NPM_INSTALL_PID=$(pgrep -f './npm_install')
+#          cpulimit -l 80 -p $NPM_INSTALL_PID &
+#          echo "cpulimit تم تشغيله على PID $NPM_INSTALL_PID"
+
+      - name:
+        run: sleep 605
